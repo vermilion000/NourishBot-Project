@@ -1,0 +1,4 @@
+logging
+FastMCP ==3.0.0
+cyclopts==5.0.0a1
+langchain===0.3.25 

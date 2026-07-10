@@ -1,0 +1,36 @@
+name: Sync Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+
+      - name: Clone target repo
+        run: |
+          git clone https://${{ secrets.SYNC_TOKEN }}@github.com/vermilion000/AIAgents-nd-LLMs.git target
+
+      - name: Copy project
+        run: |
+          mkdir -p target/RAG/ChatWithPdf
+          rsync -av --delete --exclude='.git' ./ target/RAG/ChatWithPdf/
+
+      - name: Commit and push
+        run: |
+          cd target
+          git config user.name "vermilion000"
+          git config user.email "bcmonu2002@gmail.com"
+
+          git add .
+
+          git diff --cached --quiet || (
+            git commit -m "Automatic project update"
+            git push
+          )

@@ -1,0 +1,8 @@
+langchain
+langchain-community
+pypdf
+#langchain-openai
+python_dotenv
+langchain_chroma
+langchain_google_genai
+#pinecone
